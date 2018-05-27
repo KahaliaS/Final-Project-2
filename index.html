@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+   <!-- Added by Kay for facebook og tag--> <meta property="og:title" content="Wanderlust">
+<meta property="og:description" content="An application that helps you discover your next travel destination">
+<meta property="og:image" content="img/us/logo.png">
+<meta property="og:url" content="file:///Users/kahalia/Desktop/startbootstrap-creative-gh-pages/index.html">
+   <!-- Added by Kay for twitter tag--> 
+<meta name="twitter:title" content="Wanderlust ">
+<meta name="twitter:description" content="An application that helps you discover your next travel destination">
+<meta name="twitter:image" content=" img/us/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+
+   <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Wanderlust</title>
+    <link rel="icon" href="img/us/icon.png" type="image/png"/>
+    <meta name="author" content="Kahalia &amp Natalie">
+    <meta name="description" content="This is a guide to traveling on a budget or not">
+    <meta name="keywords" content="A guide to many sources that make booking a trip easy">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+    <script src='https://cdn.jsdelivr.net/npm/vue'></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/us/logo.png"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Get Started</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Checklist</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Destination</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+              <strong>The only place you'll ever need to appease your inner traveler</strong>
+            </h1>
+            <hr>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <p style="color:black;"class="text-faded mb-5">Use Wanderlust to build your perfect vacation!</p>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Start Now</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading text-white">We've got what you need!</h2>
+            <hr class="light my-4">
+            <p class="text-faded mb-4">Search below to find the best flight for you. Check out the best </p>
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Check out the weather and plan your next trip</h2>
+            <hr class="my-4">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+            <style>
+            div.form-group{
+
+             margin: auto;
+             width: 50%;
+             padding: 10px 10px 10px 0px;
+            }
+           </style>
+           <div class="form-group row">
+           
+           <input class="form-control"  placeholder="input a city or county" id="city"></input>
+           </div>
+           
+           <button class="btn btn-raised btn-secondary" id="getWeatherForecast">Get Weather</button>
+           <div id="showWeatherForecast"></div>
+           <script type="text/javascript">
+            $(document).ready(function() {
+             $("#getWeatherForecast").click(function(){
+             var city = $("#city").val();
+             var key = 'e5996a010fa8b072f050c8e8339e7651';
+
+             $.ajax({
+
+              url: 'http://api.openweathermap.org/data/2.5/weather',
+              dataType:'json',
+              type: 'GET',
+              data: {q: city,appid: key,units: 'imperial'},
+
+              success: function(data){
+
+               var wf = '';
+               $.each(data.weather, function(index, val){
+                wf += '<p><b>'+data.name+ "</b><img src=weathermap/" +val.icon + ".png></p>"+ data.main.temp + '&deg;F ' +' | '+val.main+" , " +val.description
+                });
+               $("#showWeatherForecast").html(wf);
+               }
+               
+
+              });
+
+             });
+
+            });
+           </script>
+
+         </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="portfolio">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters popup-gallery">
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/greekisland2.png">
+              <img class="img-fluid" src="images/greekisland.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    The Greek Islands
+                  </div>
+                  <div class="project-name">
+                    11 Days: Starting at $3844
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/costarica2.png">
+              <img class="img-fluid" src="images/costarica.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Costa Rica Adventure
+                  </div>
+                  <div class="project-name">
+                    10 Days: Starting at $2834
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/ireland.png">
+              <img class="img-fluid" src="images/ireland.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Grand Tour of Ireland
+                  </div>
+                  <div class="project-name">
+                    10 Days: Starting at $3074
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/japan.png">
+              <img class="img-fluid" src="images/japan.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Japan: Back to the Future
+                  </div>
+                  <div class="project-name">
+                    14 Days: Starting at $5204
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/scotland.png">
+              <img class="img-fluid" src="images/scotland.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    England, Scotland &amp; Ireland
+                  </div>
+                  <div class="project-name">
+                    15 Days: Starting at $3739
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="images/europe2.png">
+              <img class="img-fluid" src="images/europe.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Ultimate Europe: 5 Weeks
+                  </div>
+                  <div class="project-name">
+                    5 Weeks: Starting at $6574
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="bg-primary" id="about">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+              <h2 class="section-heading text-white">What you need to pack</h2>
+              <hr class="light my-4">
+              <p class="text-faded mb-4">
+                  
+                  
+                  <div class="content">
+
+                    <style>
+                    div#myapp li{
+                      list-style:none;
+                    }
+                    @import '~pretty-checkbox/src/pretty-checkbox.scss';
+                   </style>
+
+                    <div id='myapp'>
+                      <div class="pretty p-icon">
+ 
+                      <!-- Check All -->
+
+                       <input type='checkbox'  @click='checkAll()' v-model='isCheckAll'> 
+                       <div class="state">
+                         <i class="icon mdi mdi-close-outline"></i>
+                          <label> Check All</label>
+                       </div>
+                      </div>
+
+                      <!-- Checkboxes list -->
+                      <ul>
+
+                       <li v-for='langsdat in langsdata'>
+                        <div class="pretty p-icon">
+                         <input type='checkbox' id="checkbox102" v-bind:value='langsdat' v-model='languages' @change='updateCheckall()'>
+                         <div class="state"><i class="icon mdi mdi-close-outline"></i>
+            <label> {{ langsdat }}</label></div></div>
+                        </li>
+                                          
+                      </ul>
+
+                      <!-- Print -->
+                      <input type='button' class="btn btn-light" @click='printValues()' value='Print Selected Values'>
+
+                      <br>
+                      Selected items : {{ selectedlang }}
+
+                     </div>
+
+
+                   <script>var app = new Vue({
+                     el: '#myapp',
+                     data: {
+                       isCheckAll: false,
+                       langsdata: ["Passport/State ID(drivers licence)","Cell phone","Electric converters/ adapters","Charger","shampoo","conditioner","Bathing soap","Bathing suit"],
+                       languages: [],
+                       selectedlang: ""
+                     },
+                     methods: {
+                       checkAll: function(){
+
+                         this.isCheckAll = !this.isCheckAll;
+                         this.languages = [];
+                         if(this.isCheckAll){ // Check all
+                           for (var key in this.langsdata) {
+                             this.languages.push(this.langsdata[key]);
+                           }
+                         }
+                       },
+                       updateCheckall: function(){
+                         if(this.languages.length == this.langsdata.length){
+                            this.isCheckAll = true;
+                         }else{
+                            this.isCheckAll = false;
+                         }
+                       },
+                       printValues: function(){
+                         this.selectedlang = "";
+                         // Read Checked checkboxes value
+                         for (var key in this.languages) {
+                            this.selectedlang += this.languages[key]+", "; 
+                         }
+                       }
+                     }
+                   })</script>
+
+                  
+                  </div>
+
+                
+
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class = "whattopack">
+
+    
+      
+
+      
+
+    </section>
+
+    <!--<section class="bg-dark text-white">
+      <div class="container text-center">
+        <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+      </div>
+    </section>-->
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <hr class="my-4">
+            <p class="mb-5">Contact us if when you are ready to plan your world class vacation!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+            <p>123-456-6789</p>
+          </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+            <p>
+              <a href="mailto:kahalia.stanberry@wanderlust.com">feedback@wanderlust.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+
+  </body>
+
+</html>
